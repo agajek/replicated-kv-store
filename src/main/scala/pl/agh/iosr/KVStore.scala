@@ -1,8 +1,9 @@
 package pl.agh.iosr
 
-import akka.actor.{Actor, ActorRef, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, PoisonPill, Props}
 import akka.cluster.Cluster
 import akka.cluster.ddata.{DistributedData, LWWMap, LWWMapKey}
+import akka.cluster.singleton.{ClusterSingletonManager, ClusterSingletonManagerSettings, ClusterSingletonProxy, ClusterSingletonProxySettings}
 import pl.agh.iosr.KVStore._
 
 class KVStore extends Actor {
