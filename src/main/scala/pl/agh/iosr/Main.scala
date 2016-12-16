@@ -12,9 +12,13 @@ import pl.agh.iosr.infrastructure.EC2
 import scala.collection.JavaConversions._
 
 object Main extends App {
-
-  implicit val system = ActorSystem("ClusterSystem")
-  implicit val mat = ActorMaterializer()
+  private lazy val ec2 = {
+    val credentials = new InstanceProfileCredentialsProvider
+    val region = Region.getRegion(Regions.EU_CENTRAL_1)
+    val scalingClient = new AmazonAutoScalingClient(credentials) { setRegion(region) }
+    val ec2Client = new AmazonEC2Client(credentials) { setRegion(region) }
+    new EC2(scalingClient, ec2Client)
+  }
 
   val (host, siblings, port) = (ec2.currentIp, ec2.siblingIps, "2551")
 
@@ -29,13 +33,9 @@ object Main extends App {
   private val defaults = ConfigFactory.load()
 
   val config = overrideConfig withFallback defaults
-  private lazy val ec2 = {
-    val credentials = new InstanceProfileCredentialsProvider
-    val region = Region.getRegion(Regions.EU_CENTRAL_1)
-    val scalingClient = new AmazonAutoScalingClient(credentials) { setRegion(region) }
-    val ec2Client = new AmazonEC2Client(credentials) { setRegion(region) }
-    new EC2(scalingClient, ec2Client)
-  }
+
+  implicit val system = ActorSystem("ClusterSystem", config)
+  implicit val mat = ActorMaterializer()
 
   val kVStore = system.actorOf(KVStore.props, "KVStore")
 
