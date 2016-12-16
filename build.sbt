@@ -21,5 +21,6 @@ libraryDependencies ++= Seq(
   "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.3" % "test",
   "io.gatling" % "gatling-test-framework" % "2.2.3" % "test",
   "org.json4s" %% "json4s-core" % json4sVersion,
-  "org.json4s" %% "json4s-jackson" % json4sVersion
+  "org.json4s" %% "json4s-jackson" % json4sVersion,
+  "com.amazonaws" % "aws-java-sdk" % "1.11.67"
 )
