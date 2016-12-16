@@ -22,6 +22,7 @@ object Main extends App {
 
   val (host, siblings, port) = (ec2.currentIp, ec2.siblingIps, "2551")
 
+  println(siblings + "ssssssssssssssssss")
   val seeds = siblings map (ip => s"akka.tcp://ClusterSystem@$ip:2551")
 
   private val overrideConfig =
