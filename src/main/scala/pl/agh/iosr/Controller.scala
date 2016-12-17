@@ -30,5 +30,10 @@ class Controller(kVStore: ActorRef, system: ActorSystem) extends Json4sSupport {
           complete(r)
         }
       }
+    } ~
+    path("store") {
+      get {
+        complete("OK")
+      }
     }
 }

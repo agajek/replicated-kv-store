@@ -22,7 +22,6 @@ object Main extends App {
 
   val (host, siblings, port) = (ec2.currentIp, ec2.siblingIps, "2551")
 
-  println(siblings + "ssssssssssssssssss")
   val seeds = siblings map (ip => s"akka.tcp://ClusterSystem@$ip:2551")
 
   private val overrideConfig =
@@ -42,5 +41,5 @@ object Main extends App {
 
   val controller = new Controller(kVStore, system)
 
-  Http().bindAndHandle(controller.route, "localhost", config.getInt("http.port"))
+  Http().bindAndHandle(controller.route, ec2.currentIp, config.getInt("http.port"))
 }
