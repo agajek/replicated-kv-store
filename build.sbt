@@ -17,6 +17,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-distributed-data-experimental" % akkaVersion,
+  "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+  "ch.qos.logback" % "logback-classic" % "1.1.3",
   "de.heikoseeberger" %% "akka-http-json4s" % "1.6.0",
   "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.3" % "test",
   "io.gatling" % "gatling-test-framework" % "2.2.3" % "test",
